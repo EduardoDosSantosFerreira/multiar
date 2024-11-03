@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos</title>
     <script type="module">
-        // Importando as funções necessárias do SDK
+        // Importação das funções do SDK do Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBNhdutMMvVS482lOiL_aqJayIoWJ8cc_g",
             authDomain: "multiar-34383.firebaseapp.com",
@@ -19,15 +18,96 @@
             appId: "1:1084028664918:web:1f5eb3936a5202f4474ff7",
             measurementId: "G-1K8H9F84JW"
         };
-        
+
         // Inicializando o Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Evento de envio do formulário
+        // Função para carregar produtos
+        async function loadProducts() {
+            const productList = document.getElementById("productList");
+            productList.innerHTML = "";
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                querySnapshot.forEach((doc) => {
+                    const product = { id: doc.id, ...doc.data() };
+                    createProductCard(product); // Função para criar o card do produto
+                });
+            } catch (error) {
+                console.error("Erro ao carregar produtos: ", error);
+            }
+        }
+
+        // Função para criar card de produto
+        function createProductCard(product) {
+            const productList = document.getElementById("productList");
+
+            const productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+
+            const img = document.createElement("img");
+            img.src = product.image;
+
+            const name = document.createElement("h3");
+            name.textContent = product.name;
+
+            const description = document.createElement("p");
+            description.textContent = product.description;
+
+            const price = document.createElement("p");
+            price.textContent = `R$ ${product.price.toFixed(2)}`;
+
+            // Botão de remover
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remover";
+            removeButton.onclick = () => deleteProduct(product.id, productDiv);
+
+            // Botão de editar
+            const editButton = document.createElement("button");
+            editButton.textContent = "Editar";
+            editButton.onclick = () => {
+                document.getElementById("productName").value = product.name;
+                document.getElementById("productDescription").value = product.description;
+                document.getElementById("productPrice").value = product.price;
+                document.getElementById("productImage").value = product.image;
+                document.getElementById("productId").value = product.id;
+            };
+
+            productDiv.appendChild(img);
+            productDiv.appendChild(name);
+            productDiv.appendChild(description);
+            productDiv.appendChild(price);
+            productDiv.appendChild(editButton);
+            productDiv.appendChild(removeButton);
+
+            productList.appendChild(productDiv);
+        }
+
+        // Função para deletar o produto
+        async function deleteProduct(productId, productDiv) {
+            const confirmed = confirm("Você tem certeza que deseja remover este produto?");
+            if (!confirmed) return;
+
+            try {
+                await deleteDoc(doc(db, "products", productId));
+                alert("Produto removido com sucesso!");
+                productDiv.remove(); // Remove o produto do DOM sem recarregar a página
+            } catch (error) {
+                console.error("Erro ao remover produto: ", error);
+                alert("Erro ao remover produto. Verifique o console para mais detalhes.");
+            }
+        }
+
+        // Evento para carregar produtos ao abrir a página
         document.addEventListener("DOMContentLoaded", () => {
+            loadProducts();
+
+            // Evento de formulário para adicionar/atualizar produto
             document.getElementById("productForm").addEventListener("submit", async (event) => {
                 event.preventDefault();
+
+                const productId = document.getElementById("productId").value;
 
                 const product = {
                     name: document.getElementById("productName").value,
@@ -37,9 +117,16 @@
                 };
 
                 try {
-                    await addDoc(collection(db, "products"), product);
-                    alert("Produto adicionado com sucesso!");
+                    if (productId) {
+                        await updateDoc(doc(db, "products", productId), product);
+                        alert("Produto atualizado com sucesso!");
+                    } else {
+                        await addDoc(collection(db, "products"), product);
+                        alert("Produto adicionado com sucesso!");
+                    }
+
                     document.getElementById("productForm").reset();
+                    loadProducts(); // Recarrega os produtos
                 } catch (error) {
                     console.error("Erro ao adicionar produto: ", error);
                     alert("Erro ao adicionar produto. Verifique o console para mais detalhes.");
@@ -52,12 +139,15 @@
         .container { max-width: 500px; margin: auto; padding: 20px; }
         input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
         h1 { text-align: center; }
+        .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+        .product img { width: 100%; height: auto; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Cadastro de Produto</h1>
         <form id="productForm">
+            <input type="hidden" id="productId">
             <label for="productName">Nome do Produto:</label>
             <input type="text" id="productName" required>
 
@@ -72,6 +162,9 @@
 
             <button type="submit">Adicionar Produto</button>
         </form>
+
+        <h2>Lista de Produtos</h2>
+        <div id="productList"></div>
     </div>
 </body>
 </html>

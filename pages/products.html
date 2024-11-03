@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos</title>
     <script type="module">
-        // Importando as funções necessárias do SDK
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBNhdutMMvVS482lOiL_aqJayIoWJ8cc_g",
             authDomain: "multiar-34383.firebaseapp.com",
@@ -20,14 +18,12 @@
             measurementId: "G-1K8H9F84JW"
         };
 
-        // Inicializando o Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Função para carregar e exibir produtos
         async function loadProducts() {
             const productList = document.getElementById("productList");
-            productList.innerHTML = ""; // Limpa a lista antes de carregar novos produtos
+            productList.innerHTML = "";
 
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
@@ -61,15 +57,12 @@
             }
         }
 
-        // Carregar os produtos ao abrir a página
         window.onload = loadProducts;
     </script>
     <style>
-        body { font-family: Arial, sans-serif; }
         .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 300px; }
         .product img { width: 100%; height: auto; }
         .container { display: flex; flex-wrap: wrap; gap: 20px; }
-        h1 { text-align: center; }
     </style>
 </head>
 <body>

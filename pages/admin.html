@@ -42,6 +42,7 @@
                     document.getElementById("productForm").reset();
                 } catch (error) {
                     console.error("Erro ao adicionar produto: ", error);
+                    alert("Erro ao adicionar produto. Verifique o console para mais detalhes.");
                 }
             });
         });
@@ -50,6 +51,7 @@
         body { font-family: Arial, sans-serif; }
         .container { max-width: 500px; margin: auto; padding: 20px; }
         input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
+        h1 { text-align: center; }
     </style>
 </head>
 <body>
@@ -63,7 +65,7 @@
             <textarea id="productDescription" required></textarea>
 
             <label for="productPrice">Preço (R$):</label>
-            <input type="number" id="productPrice" required>
+            <input type="number" id="productPrice" step="0.01" required>
 
             <label for="productImage">URL da Imagem:</label>
             <input type="text" id="productImage" required>

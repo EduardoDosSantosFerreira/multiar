@@ -4,32 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <style>
-        .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 300px; }
-        .product img { width: 100%; height: auto; }
-        .container { display: flex; flex-wrap: wrap; gap: 20px; }
-    </style>
-</head>
-<body>
-    <h1>Produtos</h1>
-    <div class="container" id="productList"></div>
+    <script type="module">
+        // Importando as funções necessárias do SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-    <script>
-        // Configuração Firebase - Substitua pelos dados do seu projeto
+        // Configuração do Firebase
         const firebaseConfig = {
-            apiKey: "SUA_API_KEY", // Substitua com sua chave da API
-            authDomain: "SUA_AUTH_DOMAIN", // Substitua com seu domínio de autenticação
+            apiKey: "AIzaSyBNhdutMMvVS482lOiL_aqJayIoWJ8cc_g",
+            authDomain: "multiar-34383.firebaseapp.com",
             projectId: "multiar-34383",
-            storageBucket: "SUA_STORAGE_BUCKET", // Substitua com seu bucket de armazenamento
-            messagingSenderId: "SUA_MESSAGING_SENDER_ID", // Substitua com seu ID de remetente de mensagens
-            appId: "SUA_APP_ID", // Substitua com seu ID de aplicativo
+            storageBucket: "multiar-34383.firebasestorage.app",
+            messagingSenderId: "1084028664918",
+            appId: "1:1084028664918:web:1f5eb3936a5202f4474ff7",
+            measurementId: "G-1K8H9F84JW"
         };
 
         // Inicializando o Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
         // Função para carregar e exibir produtos
         async function loadProducts() {
@@ -37,8 +30,8 @@
             productList.innerHTML = "";
 
             try {
-                const snapshot = await db.collection("products").get();
-                snapshot.forEach((doc) => {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                querySnapshot.forEach((doc) => {
                     const product = doc.data();
 
                     const productDiv = document.createElement("div");
@@ -71,5 +64,14 @@
         // Carregar os produtos ao abrir a página
         window.onload = loadProducts;
     </script>
+    <style>
+        .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 300px; }
+        .product img { width: 100%; height: auto; }
+        .container { display: flex; flex-wrap: wrap; gap: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Produtos</h1>
+    <div class="container" id="productList"></div>
 </body>
 </html>

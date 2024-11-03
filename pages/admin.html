@@ -4,8 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script type="module">
+        // Importando as funções necessárias do SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBNhdutMMvVS482lOiL_aqJayIoWJ8cc_g",
+            authDomain: "multiar-34383.firebaseapp.com",
+            projectId: "multiar-34383",
+            storageBucket: "multiar-34383.firebasestorage.app",
+            messagingSenderId: "1084028664918",
+            appId: "1:1084028664918:web:1f5eb3936a5202f4474ff7",
+            measurementId: "G-1K8H9F84JW"
+        };
+        
+        // Inicializando o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Evento de envio do formulário
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("productForm").addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const product = {
+                    name: document.getElementById("productName").value,
+                    description: document.getElementById("productDescription").value,
+                    price: parseFloat(document.getElementById("productPrice").value),
+                    image: document.getElementById("productImage").value
+                };
+
+                try {
+                    await addDoc(collection(db, "products"), product);
+                    alert("Produto adicionado com sucesso!");
+                    document.getElementById("productForm").reset();
+                } catch (error) {
+                    console.error("Erro ao adicionar produto: ", error);
+                }
+            });
+        });
+    </script>
     <style>
         body { font-family: Arial, sans-serif; }
         .container { max-width: 500px; margin: auto; padding: 20px; }
@@ -31,41 +71,5 @@
             <button type="submit">Adicionar Produto</button>
         </form>
     </div>
-
-    <script>
-        // Configuração Firebase - Substitua pelos dados do seu projeto
-        const firebaseConfig = {
-            apiKey: "SUA_API_KEY",
-            authDomain: "SEU_AUTH_DOMAIN",
-            projectId: "SEU_PROJECT_ID",
-            storageBucket: "SEU_STORAGE_BUCKET",
-            messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-            appId: "SEU_APP_ID"
-        };
-        
-        // Inicializando o Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        // Evento de envio do formulário
-        document.getElementById("productForm").addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            const product = {
-                name: document.getElementById("productName").value,
-                description: document.getElementById("productDescription").value,
-                price: parseFloat(document.getElementById("productPrice").value),
-                image: document.getElementById("productImage").value
-            };
-
-            try {
-                await db.collection("products").add(product);
-                alert("Produto adicionado com sucesso!");
-                document.getElementById("productForm").reset();
-            } catch (error) {
-                console.error("Erro ao adicionar produto: ", error);
-            }
-        });
-    </script>
 </body>
 </html>

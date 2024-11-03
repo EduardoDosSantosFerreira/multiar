@@ -12,8 +12,8 @@
         font-family: 'Poppins', sans-serif;
         font-size: 1.1rem;
       }
-      h1, h2, h5 {
-        font-size: 1.2em;
+      .custom-heading {
+        font-size: 2em; /* Aumentando ainda mais o tamanho dos h1, h2, h3 */
       }
       .navbar-brand, .nav-link, .btn, .card-title, .card-text, p {
         font-size: 1.1em;
@@ -28,8 +28,8 @@
       <nav class="navbar navbar-expand-lg" style="background-color: #0d141c;" data-bs-theme="dark">
         <div class="container d-flex justify-content-between align-items-center">
           <a class="navbar-brand d-flex align-items-center" href="#">
-            <i class="bi bi-snow2 me-2" style="font-size: 2em;"></i>
-            Multiar
+            <i class="bi bi-snow2 me-2" style="font-size: 3em;"></i>
+            <span style="font-size: 1.5em;">Multiar</span>
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -72,12 +72,12 @@
         <div class="container">
           <div class="row align-items-center">
             <div class="col-md-6">
-              <h1 class="display-4 fw-bold">Climatização de Qualidade para seu Ambiente</h1>
+              <h1 class="display-4 fw-bold custom-heading">Climatização de Qualidade para seu Ambiente</h1>
               <p class="lead">Vendas, instalação e manutenção de ar condicionado com os melhores preços do mercado.</p>
               <a href="#" class="btn btn-light btn-lg">Solicitar Orçamento</a>
             </div>
             <div class="col-md-6">
-              <img src="img/Samsung-Wind-Free-Ar-Condicionado-removebg-preview.png" alt="Ar Condicionado" class="img-fluid rounded">
+              <img src="assets/img/slider/img1.png" alt="Ar Condicionado" class="img-fluid rounded">
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
       <!-- Produtos -->
       <section class="py-5">
         <div class="container">
-          <h2 class="text-center mb-4">Produtos em Oferta</h2>
+          <h2 class="text-center mb-4 custom-heading">Produtos em Oferta</h2>
           <div class="row g-4">
             <div class="col-md-3">
               <div class="card h-100">
@@ -132,54 +132,55 @@
         </div>
       </section>
 
+      <!-- Tipos de produtos -->
       <section class="py-5" style="background-color: #0d141c;">
         <div class="container">
           <div class="row text-center justify-content-center">
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/Inverter.png" alt="Inverter" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/Inverter.png" alt="Inverter" class="img-fluid mb-2">
                 <p class="text-white">Inverter</p>
               </a>
             </div>
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/Convencional.png" alt="Convencional" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/Convencional.png" alt="Convencional" class="img-fluid mb-2">
                 <p class="text-white">Convencional</p>
               </a>
             </div>
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/multi.png" alt="Multi Split" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/multi.png" alt="Multi Split" class="img-fluid mb-2">
                 <p class="text-white">Multi Split</p>
               </a>
             </div>
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/piso-teto.png" alt="Piso Teto" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/piso-teto.png" alt="Piso Teto" class="img-fluid mb-2">
                 <p class="text-white">Piso Teto</p>
               </a>
             </div>
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/cassete.png" alt="Cassete" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/cassete.png" alt="Cassete" class="img-fluid mb-2">
                 <p class="text-white">Cassete</p>
               </a>
             </div>
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/Janela.png" alt="Janela" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/Janela.png" alt="Janela" class="img-fluid mb-2">
                 <p class="text-white">Janela</p>
               </a>
             </div>
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/Cortina-Ar.png" alt="Cortina de Ar" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/Cortina-Ar.png" alt="Cortina de Ar" class="img-fluid mb-2">
                 <p class="text-white">Cortina de Ar</p>
               </a>
             </div>
             <div class="col-6 col-md-3 mb-3">
               <a href="#" style="text-decoration: none;">
-                <img src="img/Climatizador.png" alt="Climatizador" class="img-fluid mb-2">
+                <img src="assets/img/tipo_produto/Climatizador.png" alt="Climatizador" class="img-fluid mb-2">
                 <p class="text-white">Climatizador</p>
               </a>
             </div>
@@ -187,27 +188,30 @@
         </div>
       </section>
       
+      <!-- Marcas -->
       <section class="py-5">
         <div class="container">
+          <h1 style="text-align: center; font-size: xx-large;" class="custom-heading">Grandes Marcas</h1>
+          <br>
           <div class="row">
             <div class="col-md-3 mb-3">
               <a href="#">
-                <img src="img/samsung.png" alt="Samsung" class="img-fluid rounded">
+                <img src="assets/img/marcas/samsung.png" alt="Samsung" class="img-fluid rounded">
               </a>
             </div>
             <div class="col-md-3 mb-3">
               <a href="#">
-                <img src="img/lg.png" alt="LG" class="img-fluid rounded">
+                <img src="assets/img/marcas/lg.png" alt="LG" class="img-fluid rounded">
               </a>
             </div>
             <div class="col-md-3 mb-3">
               <a href="#">
-                <img src="img/midea.png" alt="Midea" class="img-fluid rounded">
+                <img src="assets/img/marcas/midea.png" alt="Midea" class="img-fluid rounded">
               </a>
             </div>
             <div class="col-md-3 mb-3">
               <a href="#">
-                <img src="img/gree.png" alt="Gree" class="img-fluid rounded">
+                <img src="assets/img/marcas/gree.png" alt="Gree" class="img-fluid rounded">
               </a>
             </div>
           </div>
@@ -217,7 +221,7 @@
       <!-- Serviços -->
       <section class="py-5">
         <div class="container">
-          <h2 class="text-center mb-4">Nossos Serviços</h2>
+          <h2 class="text-center mb-4 custom-heading">Nossos Serviços</h2>
           <div class="row g-4">
             <div class="col-md-4">
               <div class="card h-100">
@@ -251,6 +255,7 @@
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-dark text-white py-4">
       <div class="container">
         <div class="row">

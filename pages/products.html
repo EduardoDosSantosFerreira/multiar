@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <style>
+        .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 300px; }
+        .product img { width: 100%; height: auto; }
+        .container { display: flex; flex-wrap: wrap; gap: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Produtos</h1>
+    <div class="container" id="productList"></div>
+
+    <script>
+        // Configuração Firebase - Substitua pelos dados do seu projeto
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY", // Substitua com sua chave da API
+            authDomain: "SUA_AUTH_DOMAIN", // Substitua com seu domínio de autenticação
+            projectId: "multiar-34383",
+            storageBucket: "SUA_STORAGE_BUCKET", // Substitua com seu bucket de armazenamento
+            messagingSenderId: "SUA_MESSAGING_SENDER_ID", // Substitua com seu ID de remetente de mensagens
+            appId: "SUA_APP_ID", // Substitua com seu ID de aplicativo
+        };
+
+        // Inicializando o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Função para carregar e exibir produtos
+        async function loadProducts() {
+            const productList = document.getElementById("productList");
+            productList.innerHTML = "";
+
+            try {
+                const snapshot = await db.collection("products").get();
+                snapshot.forEach((doc) => {
+                    const product = doc.data();
+
+                    const productDiv = document.createElement("div");
+                    productDiv.classList.add("product");
+
+                    const img = document.createElement("img");
+                    img.src = product.image;
+
+                    const name = document.createElement("h3");
+                    name.textContent = product.name;
+
+                    const description = document.createElement("p");
+                    description.textContent = product.description;
+
+                    const price = document.createElement("p");
+                    price.textContent = `R$ ${product.price.toFixed(2)}`;
+
+                    productDiv.appendChild(img);
+                    productDiv.appendChild(name);
+                    productDiv.appendChild(description);
+                    productDiv.appendChild(price);
+
+                    productList.appendChild(productDiv);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar produtos: ", error);
+            }
+        }
+
+        // Carregar os produtos ao abrir a página
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>

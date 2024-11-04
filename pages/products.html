@@ -1,9 +1,72 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multiar | Produtos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+      }
+      .custom-heading {
+        font-size: 2em; /* Aumentando ainda mais o tamanho dos h1, h2, h3 */
+      }
+      .navbar-brand, .nav-link, .btn, .card-title, .card-text, p {
+        font-size: 1.1em;
+      }
+      .nav-link {
+        font-size: 1.3em; /* Aumentando o tamanho dos itens da nav */
+      }
+      .product { 
+        border: 1px solid #ccc; 
+        padding: 10px; 
+        margin-bottom: 10px; 
+        width: 300px; 
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+      .product img { 
+        width: 100%; 
+        height: auto; 
+        border-radius: 8px;
+      }
+      .container { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 20px; 
+      }
+      .cart-item { 
+        border: 1px solid #ccc; 
+        padding: 10px; 
+        margin-bottom: 10px; 
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cart-item p {
+        margin: 0;
+      }
+      .cart-item button {
+        margin-left: 10px;
+      }
+      .cart-summary {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        text-align: right;
+      }
+      .cart-summary p {
+        margin: 0;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    </style>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
@@ -20,6 +83,8 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        let cart = [];
 
         async function loadProducts() {
             const productList = document.getElementById("productList");
@@ -45,10 +110,18 @@
                     const price = document.createElement("p");
                     price.textContent = `R$ ${product.price.toFixed(2)}`;
 
+                    const addToCartButton = document.createElement("button");
+                    addToCartButton.classList.add("btn", "btn-success");
+                    addToCartButton.innerHTML = '<i class="bi bi-cart-fill me-1"></i> Adicionar ao Carrinho';
+                    addToCartButton.onclick = () => {
+                        addToCart(product);
+                    };
+
                     productDiv.appendChild(img);
                     productDiv.appendChild(name);
                     productDiv.appendChild(description);
                     productDiv.appendChild(price);
+                    productDiv.appendChild(addToCartButton);
 
                     productList.appendChild(productDiv);
                 });
@@ -57,16 +130,153 @@
             }
         }
 
+        function addToCart(product) {
+            const existingProduct = cart.find(item => item.product.name === product.name);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push({ product, quantity: 1 });
+            }
+            alert(`Produto ${product.name} adicionado ao carrinho!`);
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById("cartList");
+            cartList.innerHTML = "";
+
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement("div");
+                cartItem.classList.add("cart-item");
+
+                const img = document.createElement("img");
+                img.src = item.product.image;
+                img.style.width = "50px";
+                img.style.height = "auto";
+                img.style.borderRadius = "8px";
+
+                const name = document.createElement("p");
+                name.textContent = item.product.name;
+
+                const price = document.createElement("p");
+                price.textContent = `R$ ${item.product.price.toFixed(2)}`;
+
+                const quantity = document.createElement("p");
+                quantity.textContent = `Quantidade: ${item.quantity}`;
+
+                const incrementButton = document.createElement("button");
+                incrementButton.classList.add("btn", "btn-secondary");
+                incrementButton.textContent = "+";
+                incrementButton.onclick = () => {
+                    item.quantity += 1;
+                    updateCart();
+                };
+
+                const decrementButton = document.createElement("button");
+                decrementButton.classList.add("btn", "btn-secondary");
+                decrementButton.textContent = "-";
+                decrementButton.onclick = () => {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        removeFromCart(index);
+                    }
+                    updateCart();
+                };
+
+                const removeButton = document.createElement("button");
+                removeButton.classList.add("btn", "btn-danger");
+                removeButton.textContent = "Remover";
+                removeButton.onclick = () => {
+                    removeFromCart(index);
+                };
+
+                cartItem.appendChild(img);
+                cartItem.appendChild(name);
+                cartItem.appendChild(price);
+                cartItem.appendChild(quantity);
+                cartItem.appendChild(incrementButton);
+                cartItem.appendChild(decrementButton);
+                cartItem.appendChild(removeButton);
+
+                cartList.appendChild(cartItem);
+            });
+
+            updateCartSummary();
+        }
+
+        function updateCartSummary() {
+            const cartSummary = document.getElementById("cartSummary");
+            const total = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+            cartSummary.innerHTML = `<p>Total: R$ ${total.toFixed(2)}</p>`;
+        }
+
         window.onload = loadProducts;
     </script>
-    <style>
-        .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 300px; }
-        .product img { width: 100%; height: auto; }
-        .container { display: flex; flex-wrap: wrap; gap: 20px; }
-    </style>
 </head>
 <body>
-    <h1>Produtos</h1>
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: #0d141c;" data-bs-theme="dark">
+          <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+              <i class="bi bi-snow2 me-2" style="font-size: 3em;"></i>
+              <span style="font-size: 1.5em;">Multiar</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Produtos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Serviços</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Sobre Nós</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Contato</a>
+                </li>
+              </ul>
+              <div class="d-flex align-items-center">
+                <a href="#" class="btn btn-light me-2 d-flex align-items-center">
+                  <i class="bi bi-cart-fill me-1"></i> Carrinho
+                </a>
+                <a href="tel:+5513997764129" class="btn btn-light d-flex align-items-center">
+                  <i class="bi bi-telephone-fill me-2"></i>
+                  (13) 997764129
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <br>
+    <h1 style="text-align: center;">Produtos</h1>
+    <br>
     <div class="container" id="productList"></div>
-</body>
-</html>
+    <br>
+    <h2 style="text-align: center;">Carrinho</h2>
+    <br>
+    <div class="container" id="cartList"></div>
+    <div class="container cart-summary" id="cartSummary"></div>
+    <br>
+    <div class="container" style="text-align: center;">
+        <button style="text-align: center;" class="btn btn-primary">Comprar</button>
+    </div>
+
+      <!-- Scripts -->
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    </body>
+  </html>

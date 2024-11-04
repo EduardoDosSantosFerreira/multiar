@@ -7,66 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.1rem;
-      }
-      .custom-heading {
-        font-size: 2em; /* Aumentando ainda mais o tamanho dos h1, h2, h3 */
-      }
-      .navbar-brand, .nav-link, .btn, .card-title, .card-text, p {
-        font-size: 1.1em;
-      }
-      .nav-link {
-        font-size: 1.3em; /* Aumentando o tamanho dos itens da nav */
-      }
-      .product { 
-        border: 1px solid #ccc; 
-        padding: 10px; 
-        margin-bottom: 10px; 
-        width: 300px; 
-        border-radius: 8px;
-        background-color: #f9f9f9;
-      }
-      .product img { 
-        width: 100%; 
-        height: auto; 
-        border-radius: 8px;
-      }
-      .container { 
-        display: flex; 
-        flex-wrap: wrap; 
-        gap: 20px; 
-      }
-      .cart-item { 
-        border: 1px solid #ccc; 
-        padding: 10px; 
-        margin-bottom: 10px; 
-        border-radius: 8px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .cart-item p {
-        margin: 0;
-      }
-      .cart-item button {
-        margin-left: 10px;
-      }
-      .cart-summary {
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-        text-align: right;
-      }
-      .cart-summary p {
-        margin: 0;
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="../assets/css/products.css">
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
@@ -233,10 +174,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Produtos</a>
+                  <a class="nav-link" href="./products.html">Produtos</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Serviços</a>

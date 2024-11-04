@@ -21,6 +21,14 @@
       .nav-link {
         font-size: 1.3em; /* Aumentando o tamanho dos itens da nav */
       }
+      .whatsapp-icon {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: #25d366;
+        border-radius: 50%;
+        padding: 10px;
+      }
     </style>
   </head>
   <body>
@@ -37,10 +45,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Produtos</a>
+                <a class="nav-link" href="./pages/products.html">Produtos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Serviços</a>
@@ -276,12 +284,24 @@
             <div class="d-flex gap-3">
               <a href="#" class="text-white"><i class="bi bi-facebook fs-4"></i></a>
               <a href="#" class="text-white"><i class="bi bi-instagram fs-4"></i></a>
-              <a href="#" class="text-white"><i class="bi bi-whatsapp fs-4"></i></a>
+              <a href="https://wa.me/5513997764129" class="text-white whatsapp-icon"><i class="bi bi-whatsapp fs-4"></i></a>
             </div>
           </div>
         </div>
       </div>
     </footer>
+
+    <!-- Libras -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

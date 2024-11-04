@@ -1,0 +1,58 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+}
+.custom-heading {
+  font-size: 2em; /* Aumentando ainda mais o tamanho dos h1, h2, h3 */
+}
+.navbar-brand, .nav-link, .btn, .card-title, .card-text, p {
+  font-size: 1.1em;
+}
+.nav-link {
+  font-size: 1.3em; /* Aumentando o tamanho dos itens da nav */
+}
+.product { 
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  margin-bottom: 10px; 
+  width: 300px; 
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+.product img { 
+  width: 100%; 
+  height: auto; 
+  border-radius: 8px;
+}
+.container { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+}
+.cart-item { 
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  margin-bottom: 10px; 
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-item p {
+  margin: 0;
+}
+.cart-item button {
+  margin-left: 10px;
+}
+.cart-summary {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: right;
+}
+.cart-summary p {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}

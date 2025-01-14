@@ -1,0 +1,59 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+}
+.custom-heading {
+  font-size: 2em;
+  color: #333;
+}
+.navbar {
+  background-color: #0d141c;
+}
+.navbar-brand, .nav-link, .btn, .card-title, .card-text, p {
+  font-size: 1.1em;
+}
+.nav-link {
+  font-size: 1.1em;
+  color: #fff;
+}
+.nav-link:hover {
+  color: #ddd;
+}
+.services-section, .about-section, .contact-section {
+  padding: 3rem 0;
+}
+.services-section h2, .about-section h2, .contact-section h2 {
+  margin-bottom: 2rem;
+}
+.service-item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s;
+}
+.service-item:hover {
+  transform: scale(1.05);
+}
+.service-item h3 {
+  color: #333;
+}
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+.btn-primary:hover {
+  background-color: #004085;
+}
+.btn-success:hover {
+  background-color: #218838;
+}
+.whatsapp-icon {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #25d366;
+  border-radius: 50%;
+  padding: 10px;
+  color: #fff;
+}
